@@ -5,11 +5,11 @@
  * board fills (tie)
  */
 
-var WIDTH = 7;
-var HEIGHT = 6;
+const WIDTH = 7;
+const HEIGHT = 6;
 
-var currPlayer = 1; // active player: 1 or 2
-var board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; // active player: 1 or 2
+const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -25,11 +25,11 @@ function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
 
   // TODO: add comment for this code
-  var top = document.createElement("tr");
-  top.setAttribute("id", "column-top");
-  top.addEventListener("click", handleClick);
+  let top = document.createElement("tr"); //creates top layer of cells
+  top.setAttribute("id", "column-top"); //sets id to column-top
+  top.addEventListener("click", handleClick);//adds event listener with click to top layer
 
-  for (var x = 0; x < WIDTH; x++) {
+  for (var x = 0; x < WIDTH; x++) { //creates and attach cells to the top row 
     var headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
@@ -37,12 +37,12 @@ function makeHtmlBoard() {
   htmlBoard.append(top);
 
   // TODO: add comment for this code
-  for (var y = 0; y < HEIGHT; y++) {
-    const row = document.createElement("tr");
-    for (var x = 0; x < WIDTH; x++) {
+  for (var y = 0; y < HEIGHT; y++) { //this entire thing creates rows and adds them to the 
+    const row = document.createElement("tr"); //creates a row element for the table
+    for (var x = 0; x < WIDTH; x++) { //
       const cell = document.createElement("td");
-      cell.setAttribute("id", `${y}-${x}`);
-      row.append(cell);
+      cell.setAttribute("id", `${y}-${x}`); //sets cell attribute equal to the cells x-y coordinate on the table
+      row.append(cell); //appends the cell to the row created
     }
     htmlBoard.append(row);
   }
@@ -50,31 +50,31 @@ function makeHtmlBoard() {
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
-function findSpotForCol(x) {
+let findSpotForCol = (x) => {
   // TODO: write the real version of this, rather than always returning 0
   return 0;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
-function placeInTable(y, x) {
+let placeInTable = (y, x) => {
   // TODO: make a div and insert into correct table cell
 }
 
 /** endGame: announce game end */
 
-function endGame(msg) {
-  // TODO: pop up alert message
+let endGame = (msg) => {
+  alert(msg); //pops up with the alert message when things happen
 }
 
 /** handleClick: handle click of column top to play piece */
 
-function handleClick(evt) {
+let handleClick = (evt) => {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
-
+  let x = +evt.target.id;
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  let y = findSpotForCol(x);
+  
   if (y === null) {
     return;
   }
@@ -90,7 +90,12 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-
+  
+  if(currPlayer === 1){
+    currPlayer++
+  } else{
+    currPlayer--
+  }
   // switch players
   // TODO: switch currPlayer 1 <-> 2
 }
