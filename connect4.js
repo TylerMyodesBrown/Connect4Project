@@ -88,7 +88,7 @@ let placeInTable = (y, x) => {
   // TODO: make a div and insert into correct table cell
   console.log(y)
   console.log(x)
-  let slot = document.getElementById(`${y}-${x}`);
+  let slot = document.getElementById(`${x}-${y}`);
   let piece = document.createElement('div')
   piece.setAttribute('class','piece')
   piece.setAttribute('id', `player${currPlayer}`)

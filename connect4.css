@@ -11,16 +11,17 @@
 .piece {
   /* TODO: make into circles */
   margin: 5px;
+  border-radius: 50%;
   width: 80%;
   height: 80%;
 }
 
 #player1{
-  color: blue;
+  background-color: blue;
 }
 
 #player2{
-  color: red;
+  background-color: red;
 }
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 
