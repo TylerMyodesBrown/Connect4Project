@@ -21,13 +21,13 @@ Original makeBoard
 function makeBoard(){
 
 }
-
 */
 
+
 let makeBoard = (HEIGHT, WIDTH) => {
-  for(let x = 0; x < WIDTH; x++){
+  for(let y = 0; y < WIDTH; y++){
     let row = []
-      for(let y = 0; y < HEIGHT; y++){
+      for(let x = 0; x < HEIGHT; x++){
         row.push(0)
       }
     board.push(row);
@@ -55,9 +55,9 @@ function makeHtmlBoard() {
   // TODO: add comment for this code
   for (let y = 0; y < HEIGHT; y++) { //this entire thing creates rows and adds them to the 
     const row = document.createElement("tr"); //creates a row element for the table
-    for (var x = 0; x < WIDTH; x++) { //
+    for (let x = 0; x < WIDTH; x++) { //
       const cell = document.createElement("td");
-      cell.setAttribute("id", `${x}-${y}`); //sets cell attribute equal to the cells x-y coordinate on the table
+      cell.setAttribute("id", `${y}-${x}`); //sets cell attribute equal to the cells x-y coordinate on the table
       row.append(cell); //appends the cell to the row created
     }
     htmlBoard.append(row);
@@ -68,13 +68,32 @@ function makeHtmlBoard() {
 
 let findSpotForCol = (x) => {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  let value = document.getElementById(x).getAttribute('id');
+  // console.log(value);
+  let y = board[value]
+  let flipped = y.reverse();
+  // console.log(flipped);
+  let findSlot =(el)=> el <1;
+  let ind = flipped.findIndex(findSlot);
+  flipped[ind] = currPlayer;
+  let fixed = flipped.reverse();
+  let z = fixed.findIndex(el => el >0)
+  // console.log(z)
+  return z;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 let placeInTable = (y, x) => {
   // TODO: make a div and insert into correct table cell
+  console.log(y)
+  console.log(x)
+  let slot = document.getElementById(`${y}-${x}`);
+  let piece = document.createElement('div')
+  piece.setAttribute('class','piece')
+  piece.setAttribute('id', `player${currPlayer}`)
+  console.log(`slot is ${slot} and piece is ${piece}`)
+  slot.appendChild(piece);
 }
 
 /** endGame: announce game end */
@@ -88,7 +107,7 @@ let endGame = (msg) => {
 let handleClick = (evt) => {
   // get x from ID of clicked cell
   let x = +evt.target.id;
-
+  
   // get next spot in column (if none, ignore click)
   let y = findSpotForCol(x);
   
@@ -98,7 +117,7 @@ let handleClick = (evt) => {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  placeInTable(y, x);
+  placeInTable(x, y);
 
   // check for win
   if (checkForWin()) {
@@ -126,7 +145,6 @@ function checkForWin() {
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
     //  - returns true if all are legal coordinates & all match currPlayer
-
     return cells.every(
       ([y, x]) =>
         y >= 0 &&
@@ -151,5 +169,6 @@ function checkForWin() {
   }
 }
 
-makeBoard();
+
+makeBoard(HEIGHT, WIDTH);
 makeHtmlBoard();
